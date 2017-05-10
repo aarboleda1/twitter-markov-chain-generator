@@ -7,9 +7,14 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "buffer": "^5.0.6",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "twitter": "^1.7.0"
+    "request": "^2.81.0",
+    "twitter": "^1.7.0",
+    "twitter-js-client": "0.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
