@@ -8,7 +8,7 @@
 2. `$git clone https://github.com/aarboleda1/twitter-markov-chain-generator.git` - clone repo
 3. `$cd ./twitter-markov-chain-generator`
 4. `$npm install` - install dependencies
-5. `$npm start
+5. `$npm start`
 
 
 
