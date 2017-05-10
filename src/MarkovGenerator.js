@@ -1,10 +1,3 @@
-import React, { Component } from 'react';
-import Twitter from 'twitter';
-import logo from './logo.svg';
-import './App.css';
-import { make_tweet } from './MarkovGenerator';
-import { auth } from './Auth';
-
 const titles = 
 [
     "The Calling", 
@@ -474,70 +467,42 @@ const titles =
     "You Can Count on Me", 
     "You've Got Mail"
 ];
-class App extends Component {
-	constructor () {
-		super();
-		this.state = {
-			tweets: titles,
-			user: '',
-		}
-		this.fetchUser = this.fetchUser.bind(this);
-		this._handleChange = this._handleChange.bind(this);
-		this._generateTweet = this._generateTweet.bind(this);
-		this.client = new Twitter({
-			consumer_key: auth.consumerKeyEn,
-			consumer_secret: auth.consumerSecretEn,
-			bearer_token: auth.bearerTokenEn
-		});	
-		// console.log(make_tweet(3), 'is the tweet',terminals, 'TERMINALS', startwords, 'STARTWORDS', wordstats, 'WORDSTATS')
-	}
-	_handleChange(e) {
-		e.preventDefault();
-		this.setState({
-			user: e.target.value
-		})
-	}
-	fetchUser(e) {
-		e.preventDefault();
-		console.log('fetching user!')
-		this.client.get('favorites/list', function(error, tweets, response) {
-			if(error) throw error;
-			console.log(tweets);  // The favorites. 
-			console.log(response);  // Raw response object. 
-		});	
-	}
-	_displayTweets() {
-		return this.state.tweets.map((tweet, index) => {
-			return <li key={index}>{tweet}</li>
-		})
-	}
-	_generateTweet() {
-		var tweet = make_tweet(3 + Math.floor(3 * Math.random()));
-		this.setState({
-			tweets: [tweet].concat(this.state.tweets)
-		})
-	}
+/*
+TODO: Remove these exports
+*/
+export const terminals = {};
+export const startwords = [];
+export const wordstats = {};
 
-
-
-  render() {
-	
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <h2>Markov Chain Generator</h2>
-        </div>
-				<form onSubmit={ this.fetchUser }>
-					<input type="text" onChange={ this._handleChange }/>
-					<button type="button" onClick={ this._generateTweet }>Generate Tweet</button>
-				</form>
-				<ul>
-					{ this._displayTweets() }
-				</ul>
-      </div>
-    );
-  }
+for (let i = 0; i < titles.length; i++) {
+    let words = titles[i].split(' ');
+    terminals[words[words.length-1]] = true;
+    startwords.push(words[0]);
+    for (var j = 0; j < words.length - 1; j++) {
+        if (wordstats.hasOwnProperty(words[j])) {
+            wordstats[words[j]].push(words[j+1]);
+        } else {
+            wordstats[words[j]] = [words[j+1]];
+        }
+    }
 }
 
-export default App;
+const choice = (a) => {
+    var i = Math.floor(a.length * Math.random());
+    return a[i];
+};
+
+export const make_tweet = (min_length) => {
+    let word = choice(startwords);
+    var title = [word];
+    while (wordstats.hasOwnProperty(word)) {
+        var next_words = wordstats[word];
+        word = choice(next_words);
+        title.push(word);
+        if (title.length > min_length && terminals.hasOwnProperty(word)) break;
+    }
+    if (title.length < min_length) return make_tweet(min_length);
+    return title.join(' ');
+};
+
+make_tweet(3 + Math.floor(3 * Math.random()));
