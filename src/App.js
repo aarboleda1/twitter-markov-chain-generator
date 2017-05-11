@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { make_tweet, fillDataStore } from './MarkovGenerator';
 import axios from 'axios';
@@ -55,12 +54,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <h2>Markov Chain Generator</h2>
-        </div>
+        <h2>Markov Chain Generator</h2>
 				<form onSubmit={ this.fetchUser }>
-					<input type="text" placeholder={'search user '}onChange={ this._handleChange }/>
+					<input type="text" placeholder={'search user '} onChange={ this._handleChange }/>
 					<button type="button" onClick={ this._generateTweet }>Generate Tweet</button>
 				</form>
 				<ul>

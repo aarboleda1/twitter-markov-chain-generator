@@ -12,6 +12,7 @@ const defaultTweets =
   'could be so similar @_ericelliott',
   'Great article @_ericelliott \'Are Programmers Brains Different?\' I was a pro golfer b4 coming to SF as a programmer. never realized the 2' 
 ];
+
 const container = document.getElementById('root')
 ReactDOM.render(
   <App defaultTweets={defaultTweets}/>,
