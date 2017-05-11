@@ -24,7 +24,7 @@ const fetchUserData = (username) => {
 		consumer_secret: "xuCrad84g7x0RFKI7wARAtukHVaekMS1BVlQzhuQD8TznhHcrt",
 		bearer_token: "AAAAAAAAAAAAAAAAAAAAAKBK0gAAAAAAzcemC72VxckAq9g%2FxZyCTgaPnyc%3DqEIcidZBznY8Y2YwJUOkYt88RaI8nWMrjbMQz3IafcmlMvH6zH"
 	});	
-	var getUrl = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_rts=false`
+	var getUrl = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=50&include_rts=false`
 	const userData = new Promise((resolve, reject) => {
 		client.get(getUrl, function(error, tweets, response){
 			// if(error) console.log(util.inspect(error, false, null));;
@@ -49,10 +49,8 @@ function getBearer(){
 app.get('/user/:username', function (req, res) {
 	const username = req.params.username;
 	fetchUserData(username).then((tweets) => {
-		// console.log(tweets,' IS THE RESPONSE')
 		res.send(tweets);
 	})
-  // res.send('Hello World!')
 })
 
 app.listen(8080, function () {
