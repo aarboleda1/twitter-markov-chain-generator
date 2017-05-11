@@ -1,4 +1,4 @@
-const antons_tweets = [ 'Test',
+const antons_tweet = [ 'Test',
   'Giving @getexponent a run this afternoon. Maybe #mobile isn\'t dead after all',
   'New blog post about REST and RESTful APIS https://t.co/CjPXzhuB8E',
   'story of my life @Mike_Mitrakos https://t.co/L8TCuXCjbu',
@@ -10,9 +10,9 @@ const antons_tweets = [ 'Test',
 
 const terminals = {};
 const startwords = [];
-const wordstats = {}; // database to keep probability of next word 
+const wordstats = {};
 
-export const fillDataStore = (tweets) => {
+const fillDataStore = (tweets) => {
 	for (let i = 0; i < tweets.length; i++) {
 			let words = tweets[i].split(' ');
 			terminals[words[words.length-1]] = true;
@@ -27,7 +27,7 @@ export const fillDataStore = (tweets) => {
 	}	
 };
 
-fillDataStore(antons_tweets);
+fillDataStore(antons_tweet);
 
 
 const choice = (a) => {
@@ -35,7 +35,7 @@ const choice = (a) => {
     return a[i];
 };
 
-export const makeRandomTweet = (min_length) => {
+const make_tweet = (min_length) => {
     let word = choice(startwords);
     var title = [word];
     while (wordstats.hasOwnProperty(word)) {
@@ -44,8 +44,8 @@ export const makeRandomTweet = (min_length) => {
         title.push(word);
         if (title.length > min_length && terminals.hasOwnProperty(word)) break;
     }
-    if (title.length < min_length) return makeRandomTweet(min_length);
+    if (title.length < min_length) return make_tweet(min_length);
     return title.join(' ');
 };
 
-// make_tweet(10 + Math.floor(10 * Math.random()));
+console.log(make_tweet(10 + Math.floor(10 * Math.random())));

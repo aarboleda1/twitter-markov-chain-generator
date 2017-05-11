@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { make_tweet, fillDataStore } from './MarkovGenerator';
+import { makeRandomTweet, fillDataStore } from './MarkovGenerator';
 import axios from 'axios';
-    
+import TweetList from './components/TweetList'
+
 class App extends Component {
 	constructor (props) {
 		super(props);
@@ -38,14 +39,8 @@ class App extends Component {
 			})
 	}
 
-	_displayTweets() {
-		return this.state.tweets.map((tweet, index) => {
-			return <li key={index}>{tweet}</li>
-		})
-	}
-
 	_generateTweet() {
-		var tweet = make_tweet(3 + Math.floor(3 * Math.random()));
+		var tweet = makeRandomTweet(3 + Math.floor(3 * Math.random()));
 		this.setState({
 			tweets: [tweet].concat(this.state.tweets)
 		})
@@ -57,11 +52,10 @@ class App extends Component {
         <h2>Markov Chain Generator</h2>
 				<form onSubmit={ this.fetchUser }>
 					<input type="text" placeholder={'search user '} onChange={ this._handleChange }/>
-					<button type="button" onClick={ this._generateTweet }>Generate Tweet</button>
+					<button type="button" onClick={ this.fetchUser }>Get User Tweets</button>					
 				</form>
-				<ul>
-					{ this._displayTweets() }
-				</ul>
+				<button type="button" onClick={ this._generateTweet }>Generate Markov Chain Instance</button>
+				<TweetList tweets={this.state.tweets}/>
       </div>
     );
   }
