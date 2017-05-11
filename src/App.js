@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import { makeRandomTweet, fillDataStore } from './MarkovGenerator';
-import axios from 'axios';
-import TweetList from './components/TweetList'
+import TweetList from './components/TweetList';
+import Search from './components/Search';
+import { searchTwitter } from './util/Services';
 
 class App extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
 			tweets: this.props.defaultTweets,
-			user: '',
 		}
 		this.fetchUser = this.fetchUser.bind(this);
-		this._handleChange = this._handleChange.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
 	}
-	_handleChange(e) {
-		e.preventDefault();
-		this.setState({
-			user: e.target.value
-		})
-	}
 
-  errorHandler(err) {
-		console.error(err)
-	}
-	//TODO factor out fetch request into util function
-	fetchUser(e) {
-		e.preventDefault();
-		axios.get(`http://localhost:8080/user/${this.state.user}`)
+	fetchUser(event, user) {
+		event.preventDefault();
+		searchTwitter(user) 
 			.then((response) => {
 				this.setState({
 					tweets: response.data,
@@ -50,15 +39,11 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Markov Chain Generator</h2>
-				<form onSubmit={ this.fetchUser }>
-					<input type="text" placeholder={'search user '} onChange={ this._handleChange }/>
-					<button type="button" onClick={ this.fetchUser }>Get User Tweets</button>					
-				</form>
-				<button type="button" onClick={ this._generateTweet }>Generate Markov Chain Instance</button>
-				<TweetList tweets={this.state.tweets}/>
+				<Search fetchUser={ this.fetchUser }/>
+				<button type="button" onClick={ this._generateTweet }>Generate new tweet!!</button>
+				<TweetList tweets={ this.state.tweets }/>
       </div>
     );
   }
 }
-
 export default App;
