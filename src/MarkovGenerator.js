@@ -37,15 +37,15 @@ const choice = (a) => {
 
 export const makeRandomTweet = (min_length) => {
     let word = choice(startwords);
-    var title = [word];
+    let newTweet = [word];
     while (wordstats.hasOwnProperty(word)) {
         var next_words = wordstats[word];
         word = choice(next_words);
-        title.push(word);
-        if (title.length > min_length && terminals.hasOwnProperty(word)) break;
+        newTweet.push(word);
+        if (newTweet.length > min_length && terminals.hasOwnProperty(word)) break;
     }
-    if (title.length < min_length) return makeRandomTweet(min_length);
-    return title.join(' ');
+    if (newTweet.length < min_length) return makeRandomTweet(min_length);
+    return newTweet.join(' ');
 };
 
 // make_tweet(10 + Math.floor(10 * Math.random()));
