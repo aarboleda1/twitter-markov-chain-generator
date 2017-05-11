@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import { makeRandomTweet, fillDataStore } from './MarkovGenerator';
-import TweetList from './components/TweetList';
-import Search from './components/Search';
-import { searchTwitter } from './util/Services';
+import '../../styles/App.css';
+import { makeRandomTweet, fillDataStore } from '../util/MarkovGenerator';
+import TweetList from './TweetList';
+import Search from './Search';
+import { searchTwitter } from '../util/Services';
 
 class App extends Component {
 	constructor (props) {
