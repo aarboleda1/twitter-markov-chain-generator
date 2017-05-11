@@ -19,7 +19,8 @@
 - [x] Authenticate into Twitter
 - [x] Generate chain must be generated based on the tweets of any Twitter user. 
 - [x] Search any twitter user and generate a markov chain based on the users tweets
-
+- [ ] Refactor components and folder structure and break out into separate components
+- [ ] Code cleanup, syntax, documentation
 ## License
 The content of this repository is licensed under a MIT license.
 [LICENSE](/LICENSE) file.
