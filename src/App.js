@@ -25,7 +25,7 @@ class App extends Component {
   errorHandler(err) {
 		console.error(err)
 	}
-
+	//TODO factor out fetch request into util function
 	fetchUser(e) {
 		e.preventDefault();
 		axios.get(`http://localhost:8080/user/${this.state.user}`)
