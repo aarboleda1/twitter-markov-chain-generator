@@ -4,7 +4,7 @@ terminals - stores the list of words as properties
 
 The wordstats object acts as a database. For each tweet, I keep track of each word that appear after that word
 
-Then, for each word in each title, the code simply initializes or adds to the list of words following a given word, 
+Then, for each word in each tweet, the code simply initializes or adds to the list of words following a given word, 
 which is stored by key in the wordstats object
 */
 let terminals = {};
