@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import '../styles/index.css';
-const defaultTweets = 
+
+export const defaultTweets = 
 [ 'Test',
   'Giving @getexponent a run this afternoon. Maybe #mobile isn\'t dead after all',
   'New blog post about REST and RESTful APIS https://t.co/CjPXzhuB8E',
@@ -14,7 +15,8 @@ const defaultTweets =
 ];
 
 const container = document.getElementById('root')
+
 ReactDOM.render(
-  <App defaultTweets={defaultTweets}/>,
+  <App defaultTweets={ defaultTweets }/>,
   container
 );

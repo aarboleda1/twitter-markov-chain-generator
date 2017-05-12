@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TweetItem = ({tweet}) => {
 	return(
@@ -6,4 +7,7 @@ const TweetItem = ({tweet}) => {
 	)
 }
 
+TweetItem.propTypes = {
+	tweet: PropTypes.string.isRequired 
+};
 export default TweetItem;

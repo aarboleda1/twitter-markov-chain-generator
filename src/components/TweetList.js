@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TweetItem from './TweetItem';
 
 const TweetList = ({tweets}) => {
@@ -10,4 +11,7 @@ const TweetList = ({tweets}) => {
 		</ul>
 	)
 }
+TweetList.propTypes = {
+	tweets: PropTypes.arrayOf(PropTypes.string)
+};
 export default TweetList;

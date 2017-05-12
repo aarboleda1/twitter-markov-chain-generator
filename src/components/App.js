@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../../styles/App.css';
 import { makeRandomTweet, fillDataStore } from '../util/MarkovGenerator';
 import TweetList from './TweetList';
@@ -6,10 +7,10 @@ import Search from './Search';
 import { searchTwitter } from '../util/Services';
 
 class App extends Component {
-	constructor (props) {
-		super(props);
+	constructor ({ defaultTweets }) {
+		super({ defaultTweets });
 		this.state = {
-			tweets: this.props.defaultTweets,
+			tweets: defaultTweets,
 		}
 		this.fetchUser = this.fetchUser.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
@@ -17,6 +18,7 @@ class App extends Component {
 
 	fetchUser(event, user) {
 		event.preventDefault();
+		
 		searchTwitter(user) 
 			.then((response) => {
 				this.setState({
@@ -46,4 +48,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+	defaultTweets: PropTypes.arrayOf(PropTypes.string)
+};
+
 export default App;
