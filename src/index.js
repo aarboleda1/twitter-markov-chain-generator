@@ -17,6 +17,9 @@ export const defaultTweets =
 const container = document.getElementById('root')
 
 ReactDOM.render(
-  <App defaultTweets={ defaultTweets } defaultUser={"Anton"}/>,
+  <App 
+		defaultTweets={ defaultTweets } 
+		defaultUser={"Anton"}
+	/>,
   container
 );
