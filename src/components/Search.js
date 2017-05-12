@@ -23,7 +23,6 @@ class Search extends Component {
 					<input 
 						id="myInput"
 						type="text"
-						ref={(el) => {this.textInput = el}}
 						placeholder={ 'search user'} 
 						onChange={ this._handleInputChange }/>
 					<button type="button" 
