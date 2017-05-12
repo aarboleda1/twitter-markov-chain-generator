@@ -1,41 +1,50 @@
+/*
+I initialized 3 data structures
+terminals - stores the list of words as properties
+
+The wordstats object acts as a database. For each tweet, I keep track of each word that appear
+at the start and end of tweets
+
+Then, for each word in each title, the code simply initializes or adds to the list of words following a given word, 
+which is stored by key in the wordstats object
+*/
 const terminals = {};
 const startwords = [];
 const wordstats = {}; // database to keep probability of next word 
 
 export const fillDataStore = (tweets) => {
 	for (let i = 0; i < tweets.length; i++) {
-			let words = tweets[i].split(' ');
-			terminals[words[words.length-1]] = true;
-			startwords.push(words[0]);
-			for (var j = 0; j < words.length - 1; j++) {
-					if (wordstats.hasOwnProperty(words[j])) {
-							wordstats[words[j]].push(words[j+1]);
-					} else {
-							wordstats[words[j]] = [words[j+1]];
-					}
-			}
+		let words = tweets[i].split(' ');
+		terminals[words[words.length-1]] = true;
+		startwords.push(words[0]);
+		for (var j = 0; j < words.length - 1; j++) {
+				if (wordstats.hasOwnProperty(words[j])) {
+						wordstats[words[j]].push(words[j+1]);
+				} else {
+						wordstats[words[j]] = [words[j+1]];
+				}
+		}
 	}	
 };
 
 
 const choice = (a) => {
-    var i = Math.floor(a.length * Math.random());
-    return a[i];
+	let i = Math.floor(a.length * Math.random());
+	return a[i];
 };
 
 export const makeRandomTweet = (min_length) => {
-    let word = choice(startwords);
-    let newTweet = [word];
-    while (wordstats.hasOwnProperty(word)) {
-        var next_words = wordstats[word];
-        word = choice(next_words);
-        newTweet.push(word);
-        if (newTweet.length > min_length && terminals.hasOwnProperty(word)) break;
-    }
-    if (newTweet.length < min_length) return makeRandomTweet(min_length);
-    return newTweet.join(' ');
+	let word = choice(startwords);
+	let newTweet = [word];
+	while (wordstats.hasOwnProperty(word)) {
+			var next_words = wordstats[word];
+			word = choice(next_words);
+			newTweet.push(word);
+			if (newTweet.length > min_length && terminals.hasOwnProperty(word)) break;
+	}
+	if (newTweet.length < min_length) return makeRandomTweet(min_length);
+	return newTweet.join(' ');
 };
-
 
 const defaultTweets = 
 [ 'Test',
