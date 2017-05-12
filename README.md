@@ -32,6 +32,16 @@ I used a Markov Chain to model the statistical likelihood of a word in a tweet b
 - [x] Code cleanup, syntax, documentation
 - [ ] Add Bootstrap or CSS styling
 - [ ] Testing 
+
+## Potential Improvements
+### Architecture
+I currently make the fetch to the twitter API server side. Why? CORS issues when trying to fetch from client side. It was the quickest iteration to get a prototype up and running.
+
+**Pros** - In the case that I want to create a model. i.e for a user that is frequented offer, I wouldn’t have to constantly fetch from Twitter
+i.e. Donald Trump - if 10,000 people wanted to see generate new tweets on his behalf- I could create one model server side, cache it and then serve it to the client
+
+**Cons** - Does this application **need** to store data right now? Probably not. In this case, it could be seen as additional overhead.  
+
 ## License
 The content of this repository is licensed under a MIT license.
 [LICENSE](/LICENSE) file.
