@@ -10,7 +10,7 @@
 4. `$npm install`
 5. `$npm run server` - Should spin up an express server on port 8080
 6. Open a new terminal window
-6. n`pm start` in the new terminal window to start the React client
+6. `npm start` in the new terminal window to start the React client
 7. Point your browser to http://localhost:3000/ to see the application!
 
 **Note** Make sure to run the server and client in orer for the application to run correctly
