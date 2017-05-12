@@ -10,6 +10,7 @@
 4. `$npm install`
 5. `$npm run server` - start server
 6. `$npm start` - start react client
+7. Point your browser to http://localhost:3000/ to see the application!
 
 **Note** Make sure to run the server and client in orer for the application to run correctly
 
