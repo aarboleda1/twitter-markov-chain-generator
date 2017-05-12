@@ -8,9 +8,9 @@ at the start and end of tweets
 Then, for each word in each title, the code simply initializes or adds to the list of words following a given word, 
 which is stored by key in the wordstats object
 */
-const terminals = {};
-const startwords = [];
-const wordstats = {}; // database to keep probability of next word 
+let terminals = {};
+let startwords = [];
+let wordstats = {}; // database to keep probability of next word 
 
 export const fillDataStore = (tweets) => {
 	/*
@@ -41,16 +41,18 @@ const choice = (a) => {
 	return a[i];
 };
 
-export const makeRandomTweet = (min_length) => {
+export const makeRandomTweet = (minLength) => {
 	let word = choice(startwords);
 	let newTweet = [word];
 	while (wordstats.hasOwnProperty(word)) {
 			var next_words = wordstats[word];
 			word = choice(next_words);
 			newTweet.push(word);
-			if (newTweet.length > min_length && terminals.hasOwnProperty(word)) break;
+			if (newTweet.length > minLength && terminals.hasOwnProperty(word)) break;
 	}
-	if (newTweet.length < min_length) return makeRandomTweet(min_length);
+	if (newTweet.length < minLength) {
+		return makeRandomTweet(minLength)
+	};
 	return newTweet.join(' ');
 };
 
