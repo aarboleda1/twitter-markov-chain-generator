@@ -4,7 +4,7 @@ import TweetItem from './TweetItem';
 
 const TweetList = ({tweets}) => {
 	return(
-		<ul>
+		<ul style={{listStyle: "none"}}>
 			{tweets.map((tweet, index) => {
 				return <TweetItem key={index} tweet={tweet}/>
 			})}
