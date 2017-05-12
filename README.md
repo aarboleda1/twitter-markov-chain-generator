@@ -8,8 +8,8 @@
 2. `$git clone https://github.com/aarboleda1/twitter-markov-chain-generator.git` - clone repo
 3. `$cd ./twitter-markov-chain-generator`
 4. `$npm install`
-5. `$npm run server` - start server. Should spin up an express server on port 8080
-6. Open up a new terminal window and run `$npm start` to start the React client
+5. `$npm run server` - Should spin up an express server on port 8080
+6. In a new terminal window, run `$npm start` to start the React client
 7. Point your browser to http://localhost:3000/ to see the application!
 
 **Note** Make sure to run the server and client in orer for the application to run correctly
