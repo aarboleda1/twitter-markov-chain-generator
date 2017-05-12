@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Search extends Component {
-		constructor({ fetchUser }) {
-			super({ fetchUser })
+		constructor(props) {
+			super(props)
 			this.state = {
 				user: ''
 			}
@@ -19,17 +19,23 @@ class Search extends Component {
 
 		render() {
 			return (
-			<div className="search-bar form-inline">
-				<form onSubmit={ (e) => this.fetchUser.call(this, e, this.state.user) }>
-					<input type="text" placeholder={ 'search user'} onChange={ this._handleInputChange }/>
-					<button type="button" onClick={ () => this.fetchUser.call(this, this.state.user) }>Get User Tweets</button>					
+				<form onSubmit={ (e) =>  this.props.handleSubmit.call(this, e, this.state.user) }>
+					<input 
+						id="myInput"
+						type="text"
+						ref={(el) => {this.textInput = el}}
+						placeholder={ 'search user'} 
+						onChange={ this._handleInputChange }/>
+					<button type="button" 
+						onClick={ (event) => this.props.handleSubmit(event, this.state.user) }>
+						Get User Tweets
+					</button>					
 				</form>
-			</div>
 			)
 		}
 }
 Search.propTypes = {
-	fetchUser: PropTypes.func.isRequired
+	handleSubmit: PropTypes.func.isRequired
 };
 
 export default Search;

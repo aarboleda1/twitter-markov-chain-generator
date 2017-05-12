@@ -28,6 +28,10 @@ const fetchUserData = (username) => {
 	const userData = new Promise((resolve, reject) => {
 		client.get(getUrl, function(error, tweets, response){
 			// if(error) console.log(util.inspect(error, false, null));;
+			if (error) {
+				console.error(error);
+				
+			}
 			const tweetText = tweets.map((tweet) => {
 				return tweet.text;
 			});

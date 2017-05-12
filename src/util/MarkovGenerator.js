@@ -13,6 +13,14 @@ const startwords = [];
 const wordstats = {}; // database to keep probability of next word 
 
 export const fillDataStore = (tweets) => {
+	/*
+		anytime a new user is searched, we have new items to deal with
+		and need to create a new, empty store 
+	*/
+	terminals = {};	
+	startwords = [];
+	wordstats = {};
+
 	for (let i = 0; i < tweets.length; i++) {
 		let words = tweets[i].split(' ');
 		terminals[words[words.length-1]] = true;

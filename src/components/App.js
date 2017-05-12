@@ -7,24 +7,28 @@ import Search from './Search';
 import { searchTwitter } from '../util/Services';
 
 class App extends Component {
-	constructor ({ defaultTweets }) {
-		super({ defaultTweets });
+	constructor ({ defaultTweets, defaultUser }) {
+		super({ defaultTweets, defaultUser });
 		this.state = {
 			tweets: defaultTweets,
+			currentUser: defaultUser
 		}
-		this.fetchUser = this.fetchUser.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
 	}
 
-	fetchUser(event, user) {
+	handleSubmit(event, user) {
 		event.preventDefault();
-		
+		if (!user) {			
+			return;
+		}		
 		searchTwitter(user) 
 			.then((response) => {
 				this.setState({
 					tweets: response.data,
-					user: ''
+					currentUser: user
 				}, () => {
+					document.getElementById('myInput').value = ''; // todo don't manipulate dom directly
 					fillDataStore(this.state.tweets);
 				}) 
 			})
@@ -41,8 +45,16 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Markov Chain Generator</h2>
-				<Search fetchUser={ this.fetchUser }/>
-				<button type="button" onClick={ this._generateTweet }>Generate new tweet!!</button>
+				<Search 
+					ref={(el) => { this.searchInput = el }}
+					handleSubmit={ this.handleSubmit }/>
+				<button 
+					type="button" 
+					onClick={ this._generateTweet }
+				>
+					Generate new tweet!
+				</button>
+				<h4>{this.state.currentUser}'s tweets</h4>
 				<TweetList tweets={ this.state.tweets }/>
       </div>
     );
