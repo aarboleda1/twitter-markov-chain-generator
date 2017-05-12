@@ -31,6 +31,7 @@ I used a Markov Chain to model the statistical likelihood of a word in a tweet b
 - [x] Refactor components and folder structure and break out into separate components
 - [x] Code cleanup, syntax, documentation
 - [ ] Add Bootstrap or CSS styling
+- [ ] Testing 
 ## License
 The content of this repository is licensed under a MIT license.
 [LICENSE](/LICENSE) file.
