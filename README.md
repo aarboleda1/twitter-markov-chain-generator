@@ -11,6 +11,8 @@
 5. `$npm run server` - start server
 6. `$npm start` - start react client
 
+**Note** Make sure to run the server and client in orer for the application to run correctly
+
 ## Stack 
 - React
 - Express
