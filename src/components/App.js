@@ -51,6 +51,7 @@ class App extends Component {
 				<button 
 					type="button" 
 					onClick={ this._generateTweet }
+					id="generate-tweet-button"
 				>
 					Generate new tweet!
 				</button>
