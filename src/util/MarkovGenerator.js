@@ -23,11 +23,14 @@ export const fillDataStore = (tweets) => {
 
 	for (let i = 0; i < tweets.length; i++) {
 		let words = tweets[i].split(' ');
+		words = words.filter((word) => {
+			return !word.includes('@')
+		})
 		terminals[words[words.length-1]] = true;
 		startwords.push(words[0]);
 		for (var j = 0; j < words.length - 1; j++) {
 				if (wordstats.hasOwnProperty(words[j])) {
-						wordstats[words[j]].push(words[j+1]);
+						wordstats[words[j]].push(words[j+1]); //todo return null
 				} else {
 						wordstats[words[j]] = [words[j+1]];
 				}
@@ -42,7 +45,8 @@ const choice = (a) => {
 };
 
 export const makeRandomTweet = (minLength) => {
-	let word = choice(startwords);
+	let word = choice(startwords); //wordstats keys
+
 	let newTweet = [word];
 	while (wordstats.hasOwnProperty(word)) {
 			var next_words = wordstats[word];
@@ -51,7 +55,7 @@ export const makeRandomTweet = (minLength) => {
 			if (newTweet.length > minLength && terminals.hasOwnProperty(word)) break;
 	}
 	if (newTweet.length < minLength) {
-		return makeRandomTweet(minLength)
+		return makeRandomTweet(minLength);
 	};
 	return newTweet.join(' ');
 };
