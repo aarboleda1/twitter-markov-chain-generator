@@ -16,6 +16,9 @@ class Search extends Component {
 				user: e.target.value
 			})
 		}	
+		focus() {
+			this.inputEl.focus();
+		}
 
 		render() {
 			return (
@@ -24,7 +27,8 @@ class Search extends Component {
 						id="myInput"
 						type="text"
 						placeholder={ 'search user'} 
-						onChange={ this._handleInputChange }/>
+						onChange={ this._handleInputChange}
+						ref={(el) => this.inputEl = el }/>						
 					<button type="button" 
 						onClick={ (event) => this.props.handleSubmit(event, this.state.user) }>
 						Get User Tweets

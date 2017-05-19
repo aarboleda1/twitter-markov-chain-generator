@@ -16,7 +16,13 @@ class App extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
 	}
-
+	
+	/*
+		Micro-optimization to reach into child Input component to auto focus when app loads
+	*/
+	componentDidMount() {
+		this.InputComponent.focus(); 
+	}
 	handleSubmit(event, user) {
 		event.preventDefault();
 		if (!user) {			
@@ -46,7 +52,7 @@ class App extends Component {
       <div className="App">
         <h2>Markov Chain Generator</h2>
 				<Search 
-					ref={(el) => { this.searchInput = el }}
+					ref={comp => { this.InputComponent = comp; }}
 					handleSubmit={ this.handleSubmit }/>
 				<button 
 					type="button" 
