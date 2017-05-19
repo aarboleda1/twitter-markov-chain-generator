@@ -16,13 +16,14 @@ class App extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
 	}
-	
+
 	/*
 		Micro-optimization to reach into child Input component to auto focus when app loads
 	*/
 	componentDidMount() {
 		this.InputComponent.focus(); 
 	}
+	
 	handleSubmit(event, user) {
 		event.preventDefault();
 		if (!user) {			
