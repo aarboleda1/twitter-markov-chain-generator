@@ -23,7 +23,7 @@ class App extends Component {
 	componentDidMount() {
 		this.InputComponent.focus(); 
 	}
-	
+
 	handleSubmit(event, user) {
 		event.preventDefault();
 		if (!user) {			
@@ -35,7 +35,7 @@ class App extends Component {
 					tweets: response.data,
 					currentUser: user
 				}, () => {
-					document.getElementById('myInput').value = ''; // todo don't manipulate dom directly
+					this.InputComponent.inputEl.value = '';
 					fillDataStore(this.state.tweets);
 				}) 
 			})
