@@ -6,70 +6,62 @@ app.options('*', cors());
 
 const Buffer = require('buffer/').Buffer;
 const request = require('request');
-const consumer_key = "3GdRJBNNOiZ5KBcShjaLqrd5H";
-const consumer_secret = "xuCrad84g7x0RFKI7wARAtukHVaekMS1BVlQzhuQD8TznhHcrt";
-const enc_secret = new Buffer(consumer_key + ':' + consumer_secret).toString('base64');
+const secrets = require('./config');
 const Twitter = require('twitter');
 
-var oauthOptions = {
-	url: 'https://api.twitter.com/oauth2/token',
-	headers: {'Authorization': 'Basic ' + enc_secret, 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-	body: 'grant_type=client_credentials'
-};
-var bearer = getBearer();
 
 const fetchUserData = (username) => {
 	const client = new Twitter({
-		consumer_key: "3GdRJBNNOiZ5KBcShjaLqrd5H",
-		consumer_secret: "xuCrad84g7x0RFKI7wARAtukHVaekMS1BVlQzhuQD8TznhHcrt",
-		bearer_token: "AAAAAAAAAAAAAAAAAAAAAKBK0gAAAAAAzcemC72VxckAq9g%2FxZyCTgaPnyc%3DqEIcidZBznY8Y2YwJUOkYt88RaI8nWMrjbMQz3IafcmlMvH6zH"
+		consumer_key: secrets.consumer_key,
+		consumer_secret: secrets.consumer_secret,
+		bearer_token: secrets.bearer_token
 	});	
-	var getUrl = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=50&include_rts=false`
+	let allTweets = [];
+	var getUrl = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=200&include_rts=false`
 	const userData = new Promise((resolve, reject) => {
 		client.get(getUrl, function(error, tweets, response){
 			// if(error) console.log(util.inspect(error, false, null));;
 			if (error) {
-				console.error(error);
-				
+				reject(error);
+			} else {
+				const tweetTexts = tweets.map((tweet) => {
+					return tweet.text;
+				});
+				allTweets = allTweets.concat(tweetTexts);
+				const lastTweet = tweets[tweets.length - 1];
+				if (!lastTweet) {
+					reject(new Error('No more tweets'));
+				} else {
+					resolve(lastTweet.id);
+				}
 			}
-			const tweetText = tweets.map((tweet) => {
-				return tweet.text;
-			});
-			resolve(tweetText);
-		})		
-	});
+		})	
+	})
+	.then((id) => {
+		return new Promise((resolve, reject) => {
+			client.get(getUrl, {count: 200, max_id: id}, (error, tweets, response) => {
+				const tweetTexts = tweets.map((tweet) => {
+					return tweet.text;
+				});
+				allTweets = allTweets.concat(tweetTexts);			
+				resolve(allTweets);
+			})
+		})
+	})	
 	return userData;
 }
 
-
-function getBearer(){
-    request.post(oauthOptions, function(e, r, body) {
-      var bod = JSON.parse(body);
-      bearer = bod.access_token;
-      return bearer;
-    });
-}
 
 app.get('/user/:username', function (req, res) {
 	const username = req.params.username;
 	fetchUserData(username).then((tweets) => {
 		res.send(tweets);
 	})
+	.catch((err) => {
+		console.error(err);
+	})
 })
 
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!')
 })
-
-
-
-
-
-
-
-
-
-
-
-
-

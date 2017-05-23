@@ -19,7 +19,7 @@ const container = document.getElementById('root')
 ReactDOM.render(
   <App 
 		defaultTweets={ defaultTweets } 
-		defaultUser={"Anton"}
+		defaultUser={ "Anton" }
 	/>,
   container
 );

@@ -7,11 +7,11 @@ import Search from './Search';
 import { searchTwitter } from '../util/Services';
 
 class App extends Component {
-	constructor ({ defaultTweets, defaultUser }) {
-		super({ defaultTweets, defaultUser });
+	constructor (props) { 
+		super(props);
 		this.state = {
-			tweets: defaultTweets,
-			currentUser: defaultUser
+			tweets: props.defaultTweets,
+			currentUser: props.defaultUser
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this._generateTweet = this._generateTweet.bind(this);
@@ -37,7 +37,7 @@ class App extends Component {
 				}, () => {
 					this.InputComponent.inputEl.value = '';
 					fillDataStore(this.state.tweets);
-				}) 
+				})
 			})
 	}
 
@@ -62,7 +62,7 @@ class App extends Component {
 				>
 					Generate new tweet!
 				</button>
-				<h4>{this.state.currentUser}'s tweets</h4>
+				<h4>{ this.state.currentUser }'s tweets</h4>
 				<TweetList tweets={ this.state.tweets }/>
       </div>
     );

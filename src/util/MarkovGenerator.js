@@ -46,8 +46,8 @@ export const makeRandomTweet = (minLength) => {
 	let word = choice(allWordOptions);
 
 	let newTweet = [word];
-	while (wordstats.hasOwnProperty(word)) {
-			var nextWords = wordstats[word];
+	while (wordstats.hasOwnProperty(word)) { 
+			var nextWords = wordstats[word]; 
 			word = choice(nextWords);
 			newTweet.push(word);
 			if (newTweet.length > minLength && terminals.hasOwnProperty(word)) break;
