@@ -21,7 +21,8 @@ class App extends Component {
 		Micro-optimization to reach into child Input component to auto focus when app loads
 	*/
 	componentDidMount() {
-		this.InputComponent.focus(); 
+		this.InputComponent.focus();
+		fillDataStore(this.state.tweets); 
 	}
 
 	handleSubmit(event, user) {
