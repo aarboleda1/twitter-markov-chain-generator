@@ -4,11 +4,9 @@ const cors = require('cors');
 app.use(cors());
 app.options('*', cors());
 
-const Buffer = require('buffer/').Buffer;
 const request = require('request');
 const secrets = require('./config');
 const Twitter = require('twitter');
-
 
 const fetchUserData = (username) => {
 	const client = new Twitter({

@@ -22,6 +22,7 @@ class App extends Component {
 	*/
 	componentDidMount() {
 		this.InputComponent.focus();
+		console.log('about to fill!!')
 		fillDataStore(this.state.tweets); 
 	}
 
